@@ -49,4 +49,4 @@ sh RUN.sh 64 0.0.2
 
 ## Warning
 
-Rusic was designed to run on your home network and not on the wider internet.  It has not authentication system so you have been warned!!!
+Rusic was designed to run on your home network and not on the wider internet.  It has no authentication system so you have been warned!!!
