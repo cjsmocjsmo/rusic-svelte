@@ -55,6 +55,7 @@ else
 
   git pull https://github.com/cjsmocjsmo/rusic-svelte.git
 
+  npm install
   # Build rusic
   npm run build
 
