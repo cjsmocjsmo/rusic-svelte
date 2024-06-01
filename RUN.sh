@@ -73,9 +73,9 @@ if [ "$1" = "32" ]; then
   docker run -d -p 9090:80 rusicsvelte:"$1"
 
   rm Dockerfile
+fi
 
-else
-
+if [ "$1" = "64" ]; then
   cp -pvr RPI/64/Dockerfile .
   # Stop and remove all rusicsvelte containers
   docker stop $(docker ps -aq --filter "name=rusicsvelte")
