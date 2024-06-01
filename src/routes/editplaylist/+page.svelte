@@ -5,7 +5,7 @@
 	let playlistid = $songsforplaylist;
 	let playlist = [];
 	onMount(async () => {
-		let url = 'http://192.168.0.91:8080/editplaylistpage/' + playlistid;
+		let url = 'http://192.168.0.74:8080/editplaylistpage/' + playlistid;
 		let URL = encodeURI(url);
 		try {
 			const response = await fetch(URL)
@@ -19,7 +19,7 @@
 	});
 
     async function removeSongFromPlaylist(playlistid, songid) {
-        let url = 'http://192.168.0.91:8080/removesongfromplaylist/' + playlistid + '/' + songid;
+        let url = 'http://192.168.0.74:8080/removesongfromplaylist/' + playlistid + '/' + songid;
         let URL = encodeURI(url);
         try {
             const response = await fetch(URL)

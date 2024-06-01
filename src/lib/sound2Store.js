@@ -16,7 +16,7 @@ if (typeof window !== 'undefined') {
 let srclist = [];
 
 async function loadCoverArt(src) {
-    const URL = "http://192.168.0.91:8080/coverartfromplaypath/" + src
+    const URL = "http://192.168.0.74:8080/coverartfromplaypath/" + src
     const url = encodeURI(URL)
     const response = await fetch(url);
     const data = await response.json();
@@ -26,7 +26,7 @@ async function loadCoverArt(src) {
 }
 
 async function loadSingle(src) {
-    const URL = "http://192.168.0.91:8080/coverartfromplaypath/" + src
+    const URL = "http://192.168.0.74:8080/coverartfromplaypath/" + src
     const url = encodeURI(URL)
     const response = await fetch(url);
     const data = await response.json();
