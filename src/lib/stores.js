@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
+import MainImg from '$lib/images/playing.jpg'
 
-export const currentPlayingImg = writable('http://192.168.0.74:8080/assets/playing2.jpg');
+export const currentPlayingImg = writable(MainImg);
 
 export const currentPlayingSong = writable('');
 
