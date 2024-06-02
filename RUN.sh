@@ -72,10 +72,10 @@ npm install
 npm run build
 
 # Build the docker image
-docker build -t rusicsvelte:"$1" .
+docker build -t "rusicsvelte:$1" .
 
 # Deploy image
-docker run -d -p 9090:80 rusicsvelte:"$1"
+docker run -d -p 9090:80 "rusicsvelte:$1"
 
 rm Dockerfile
 
