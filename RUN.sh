@@ -56,7 +56,7 @@ echo "rusicsvelte:$2";
 echo "rusicsvelte$count";
 echo "rusicsvelte$minusone";
 
-if [ "$minusone" = "0" ]; then
+if [ "$minusone" -eq 0 ]; then
     npm install;
 
     npm run build;
@@ -68,7 +68,7 @@ if [ "$minusone" = "0" ]; then
     exit 0;
 fi
 
-if [ "$minusone" = "1" ]; then
+if [ "$minusone" -eq 1 ]; then
     docker stop rusicsvelte1;
 
     docker rm rusicsvelte1;
@@ -84,7 +84,7 @@ if [ "$minusone" = "1" ]; then
     exit 0;
 fi
 
-if [ "$minusone" > "1" ]; then
+if [ "$minusone" -gt 1 ]; then
     docker stop rusicsvelte$minusone;
 
     docker rm rusicsvelte$minusone;
