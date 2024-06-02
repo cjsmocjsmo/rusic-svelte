@@ -38,19 +38,7 @@ if [ "$1" = "64" ]; then
     fi
 fi
 
-# Stop the running rusic container if it exists
-container=rusicsvelte:"$2"
-echo container=$container
-if [ "$container" != "" ]; then
-    RUNNING_CONTAINERS=$(docker ps -af status=running --format 'image={{.Image}}')
-    if echo "$RUNNING_CONTAINERS" | grep -q "$container"; then
-        echo "A container with the name $container\n is already running STOPPING IT NOW"
-        # stop the container with the image name $container
-        docker stop $(docker ps -q --filter ancestor=$container)
-    else
-        echo "No container with the name $container is running"
-    fi
-fi
+git pull https://github.com/cjsmocjsmo/rusic-svelte.git;
 
 if [ "$1" = "32" ]; then
   cp -pvr RPI/32/Dockerfile .
@@ -60,22 +48,54 @@ if [ "$1" = "64" ]; then
   cp -pvr RPI/64/Dockerfile .
 fi
 
-  # Stop and remove all rusicsvelte containers
-docker stop $(docker ps -aq --filter "name=rusicsvelte")
+count1=$(echo "$2" | sed 's/\.//g' )
+count=$((count1+1-1))
+minusone=$((count-1))
+echo "Version: $2";
+echo "rusicsvelte:$2";
+echo "rusicsvelte$count";
+echo "rusicsvelte$minusone";
 
-# docker rm $(docker ps -aq --filter "name=rusicsvelte")
-git pull https://github.com/cjsmocjsmo/rusic-svelte.git
+if [ "$minusone" = "0" ]; then
+    npm install;
 
-npm install
+    npm run build;
 
-# Build rusic
-npm run build
+    docker build -t rusicsvelte:$1 .;
+    
+    docker run --name rusicsvelte1 -d -p 8090:8090 rusicsvelte:$1;
 
-# Build the docker image
-docker build -t "rusicsvelte:$1" .
+    exit 0;
+fi
 
-# Deploy image
-docker run -d -p 9090:80 "rusicsvelte:$1"
+if [ "$minusone" = "1" ]; then
+    docker stop rusicsvelte1;
 
-rm Dockerfile
+    docker rm rusicsvelte1;
 
+    npm install;
+
+    npm run build;
+
+    docker build -t rusicsvelte:$1 .;
+
+    docker run --name rusicsvelte$count -d -p 8090:8090 rusicsvelte:$1;
+
+    exit 0;
+fi
+
+if [ "$minusone" > "1" ]; then
+    docker stop rusicsvelte$minusone;
+
+    docker rm rusicsvelte$minusone;
+
+    npm install;
+
+    npm run build;
+
+    docker build -t rusicsvelte:$1 .;
+
+    docker run --name rusicsvelte$count -d -p 8090:8090 rusicsvelte:$1;
+
+    exit 0;
+fi
