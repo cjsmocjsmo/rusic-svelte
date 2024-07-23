@@ -61,9 +61,9 @@ if [ "$minusone" -eq 0 ]; then
 
     npm run build;
 
-    docker build -t rusicsvelte:$1 .;
+    docker build -t rusicsvelte:$2 .;
     
-    docker run --name rusicsvelte1 -d -p 8090:8090 rusicsvelte:$1;
+    docker run --name rusicsvelte1 -d -p 9090:9090 rusicsvelte:$2;
 
     exit 0;
 fi
@@ -77,9 +77,9 @@ if [ "$minusone" -eq 1 ]; then
 
     npm run build;
 
-    docker build -t rusicsvelte:$1 .;
+    docker build -t rusicsvelte:$2 .;
 
-    docker run --name rusicsvelte$count -d -p 8090:8090 rusicsvelte:$1;
+    docker run --name rusicsvelte$count -d -p 9090:9090 rusicsvelte:$2;
 
     exit 0;
 fi
@@ -93,9 +93,9 @@ if [ "$minusone" -gt 1 ]; then
 
     npm run build;
 
-    docker build -t rusicsvelte:$1 .;
+    docker build -t rusicsvelte:$2 .;
 
-    docker run --name rusicsvelte$count -d -p 8090:8090 rusicsvelte:$1;
+    docker run --name rusicsvelte$count -d -p 9090:9090 rusicsvelte:$2;
 
     exit 0;
 fi
