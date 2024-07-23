@@ -63,7 +63,7 @@ if [ "$minusone" -eq 0 ]; then
 
     docker build -t rusicsvelte:$2 .;
     
-    docker run --name rusicsvelte1 -d -p 9090:9090 rusicsvelte:$2;
+    docker run --name rusicsvelte1 -d -p 9090:80 rusicsvelte:$2;
 
     exit 0;
 fi
@@ -79,7 +79,7 @@ if [ "$minusone" -eq 1 ]; then
 
     docker build -t rusicsvelte:$2 .;
 
-    docker run --name rusicsvelte$count -d -p 9090:9090 rusicsvelte:$2;
+    docker run --name rusicsvelte$count -d -p 9090:80 rusicsvelte:$2;
 
     exit 0;
 fi
@@ -95,7 +95,7 @@ if [ "$minusone" -gt 1 ]; then
 
     docker build -t rusicsvelte:$2 .;
 
-    docker run --name rusicsvelte$count -d -p 9090:9090 rusicsvelte:$2;
+    docker run --name rusicsvelte$count -d -p 9090:80 rusicsvelte:$2;
 
     exit 0;
 fi
