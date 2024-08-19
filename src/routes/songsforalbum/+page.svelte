@@ -9,7 +9,7 @@
 
 	let songlist = [];
 	onMount(async () => {
-		let URL = 'http://192.168.0.74:8080/albumsforartistsongs/' + $songsForAlbum;
+		let URL = 'http://10.0.4.31:8080/albumsforartistsongs/' + $songsForAlbum;
 		try {
 			const response = await fetch(URL)
 				.then((response) => response.json())
@@ -33,7 +33,7 @@
 	
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://192.168.0.74:8080/currentPlayingImg/' + albid)
+			const response = await fetch('http://10.0.4.31:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					setPlayingImg(data.HttpThumbPath);
@@ -44,7 +44,7 @@
 	}
 
 	async function addSongToPlaylist(songid) {
-		const u = 'http://192.168.0.74:8080/addsongtoplaylist';
+		const u = 'http://10.0.4.31:8080/addsongtoplaylist';
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
