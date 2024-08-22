@@ -5,7 +5,7 @@
 	let alphabet = [];
 	onMount(async () => {
 		try {
-			const response = await fetch('http://10.0.4.31:8080/artiststartswith')
+			const response = await fetch('http://10.0.4.35:8080/artiststartswith')
 				.then((response) => response.json())
 				.then((data) => {
 					alphabet = data;
@@ -18,7 +18,7 @@
 	let artistlist = [];
 	async function getArtistForAlpha(letter) {
 		try {
-			const response = await fetch('http://10.0.4.31:8080/artistforalpha/' + letter)
+			const response = await fetch('http://10.0.4.35:8080/artistforalpha/' + letter)
 				.then((response) => response.json())
 				.then((data) => {
 					artistlist = data;
