@@ -7,7 +7,7 @@
 	onMount(async () => {
 		let artid = $albumForArtistArtistId;
 		try {
-			const response = await fetch('http://10.0.4.39:8080/albumsforartist/' + artid)
+			const response = await fetch('http://192.168.0.120:8080/albumsforartist/' + artid)
 				.then((response) => response.json())
 				.then((data) => {
 					albumss = data;

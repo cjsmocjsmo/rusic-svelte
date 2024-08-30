@@ -15,7 +15,7 @@ export const playlistplaysongids = writable([]);
 export const addbuttonvisible = writable(false);
 
 async function AddSongToPlaylist(selectedpaylistid, songid) {
-    let url = 'http://10.0.4.39:8080/addsongtoplaylist/' + selectedpaylistid + '/' + (songid);
+    let url = 'http://192.168.0.120:8080/addsongtoplaylist/' + selectedpaylistid + '/' + (songid);
     URL = encodeURI(url);
     let response = await fetch(URL)
         .then((response) => response.json())
