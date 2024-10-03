@@ -8,7 +8,7 @@
 	let pagelist = [];
 	onMount(async () => {
 		try {
-			const response = await fetch('http://192.168.0.120:8080/songpages')
+			const response = await fetch('http://10.0.4.39:8080/songpages')
 				.then((response) => response.json())
 				.then((data) => {
 					pagelist = data;
@@ -21,7 +21,7 @@
 	let songlist = [];
 
 	async function songsforpage(page) {
-		let url = `http://192.168.0.120:8080/songsforpage/${page}`;
+		let url = `http://10.0.4.39:8080/songsforpage/${page}`;
 		const response = await fetch(url)
 			.then((response) => response.json())
 			.then((data) => {
@@ -48,7 +48,7 @@
 	}
 
 	async function addSongToPlaylist(songid) {
-		const u = 'http://192.168.0.120:8080/addsongtoplaylist';
+		const u = 'http://10.0.4.39:8080/addsongtoplaylist';
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
@@ -71,7 +71,7 @@
 	
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://192.168.0.120:8080/currentPlayingImg/' + albid)
+			const response = await fetch('http://10.0.4.39:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					setPlayingImg(data.HttpThumbPath);
