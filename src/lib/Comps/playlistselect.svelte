@@ -4,7 +4,7 @@
 
 	let playlist_present = false;
 	onMount(async () => {
-		let response = await fetch('http://10.0.4.39:8080/playlistcheck')
+		let response = await fetch('http://10.0.4.76:8080/playlistcheck')
 			.then((response) => response.json())
 			.then((data) => {
 				playlist_present = data;
@@ -13,7 +13,7 @@
 				console.error('Error:', error);
 			});
 		if (playlist_present) {
-			let response2 = await fetch('http://10.0.4.39:8080/allplaylists')
+			let response2 = await fetch('http://10.0.4.76:8080/allplaylists')
 				.then((response2) => response2.json())
 				.then((data2) => {
 					playlist.set(data2);

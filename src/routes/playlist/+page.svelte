@@ -7,7 +7,7 @@
 	let playlist_present = false;
 
 	onMount(async () => {
-		let response = await fetch('http://10.0.4.39:8080/playlistcheck')
+		let response = await fetch('http://10.0.4.76:8080/playlistcheck')
 			.then((response) => response.json())
 			.then((data) => {
 				playlist_present = data;
@@ -16,7 +16,7 @@
 				console.error('Error:', error);
 			});
 		if (playlist_present) {
-			let response2 = await fetch('http://10.0.4.39:8080/allplaylists')
+			let response2 = await fetch('http://10.0.4.76:8080/allplaylists')
 				.then((response2) => response2.json())
 				.then((data2) => {
 					playlist.set(data2);
@@ -28,7 +28,7 @@
 	});
 
 	async function getAllPlaylists() {
-		let response3 = await fetch('http://10.0.4.39:8080/allplaylists')
+		let response3 = await fetch('http://10.0.4.76:8080/allplaylists')
 			.then((response3) => response3.json())
 			.then((data3) => {
 				playlist.set(data3);
@@ -40,7 +40,7 @@
 
 	let name = '';
 	async function addEmptyPlaylist() {
-		let URL = 'http://10.0.4.39:8080/createemptyplaylist/' + name;
+		let URL = 'http://10.0.4.76:8080/createemptyplaylist/' + name;
 		let url = encodeURI(URL);
 		try {
 			const response = await fetch(url)
@@ -57,7 +57,7 @@
 	let count = '';
 
 	async function addRandomPlaylist() {
-		let url = 'http://10.0.4.39:8080/createrandomplaylist/' + randomname + '/' + count;
+		let url = 'http://10.0.4.76:8080/createrandomplaylist/' + randomname + '/' + count;
 		let URL = encodeURI(url);
 		try {
 			const response = await fetch(URL)
@@ -75,7 +75,7 @@
 	}
 
 	async function deletePlaylist(rusicidd) {
-		let url = 'http://10.0.4.39:8080/deleteplaylist/' + rusicidd;
+		let url = 'http://10.0.4.76:8080/deleteplaylist/' + rusicidd;
 		let URL = encodeURI(url);
 		try {
 			const response = await fetch(URL)
@@ -89,7 +89,7 @@
 	}
 
 	async function playPlaylist(rusicid) {
-		let url = 'http://10.0.4.39:8080/playplaylist/' + rusicid;
+		let url = 'http://10.0.4.76:8080/playplaylist/' + rusicid;
 		let URL = encodeURI(url);
 		try {
 			const response = await fetch(URL)

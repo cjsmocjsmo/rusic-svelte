@@ -9,7 +9,7 @@
 
 	onMount(async () => {
 		try {
-			const response = await fetch('http://10.0.4.39:8080/main')
+			const response = await fetch('http://10.0.4.76:8080/main')
 				.then((response) => response.json())
 				.then((data) => {
 					foobar = data;
@@ -18,7 +18,7 @@
 			console.error(error);
 		}
 		try {
-			let response2 = await fetch('http://10.0.4.39:8080/allplaylists')
+			let response2 = await fetch('http://10.0.4.76:8080/allplaylists')
 				.then((response2) => response2.json())
 				.then((data2) => {
 					playlist.set(data2);
@@ -33,7 +33,7 @@
 
 	async function albumofinterest() {
 		try {
-			const response = await fetch('http://10.0.4.39:8080/main')
+			const response = await fetch('http://10.0.4.76:8080/main')
 				.then((response) => response.json())
 				.then((data) => {
 					foobar = data;
@@ -44,7 +44,7 @@
 	let sfaData = [];
 	async function songsforalbum(albumid) {
 		try {
-			const response = await fetch('http://10.0.4.39:8080/songsforalbum/' + albumid)
+			const response = await fetch('http://10.0.4.76:8080/songsforalbum/' + albumid)
 				.then((response) => response.json())
 				.then((data) => {
 					sfaData = data;
@@ -64,7 +64,7 @@
 
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://10.0.4.39:8080/currentPlayingImg/' + albid)
+			const response = await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					currentPlayingImg.set(data.HttpThumbPath);
@@ -75,7 +75,7 @@
 	}
 
 	async function addSongToPlaylist(songid) {
-		const u = 'http://10.0.4.39:8080/addsongtoplaylist';
+		const u = 'http://10.0.4.76:8080/addsongtoplaylist';
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
