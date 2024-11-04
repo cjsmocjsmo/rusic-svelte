@@ -3,7 +3,7 @@
 	import { songsforplaylist } from '$lib/playlistStore.js';
 
 	let playlistid = $songsforplaylist;
-	let playlist = [];
+	let playlist = $state([]);
 	onMount(async () => {
 		let url = 'http://10.0.4.76:8080/editplaylistpage/' + playlistid;
 		let URL = encodeURI(url);
@@ -68,7 +68,7 @@
 						<p>{song2.Song}</p>
 					</div>
 					<div>
-						<button class="delBtn" on:click={() => removeSongFromPlaylist(song.RusicId, song2.RusicId)}>Delete</button>
+						<button class="delBtn" onclick={() => removeSongFromPlaylist(song.RusicId, song2.RusicId)}>Delete</button>
 					</div>
 				</div>
 			{/each}

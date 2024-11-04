@@ -5,6 +5,13 @@
 	import Header from './Header.svelte';
 	import NoSleep from 'nosleep.js';
 	import RusicHowler from '$lib/Comps/rusichowel.svelte';
+	/**
+	 * @typedef {Object} Props
+	 * @property {import('svelte').Snippet} [children]
+	 */
+
+	/** @type {Props} */
+	let { children } = $props();
 
 	let noSleep;
 
@@ -17,7 +24,7 @@
 	<Header />
 
 	<main>
-		<slot />
+		{@render children?.()}
 	</main>
 
 	<footer>

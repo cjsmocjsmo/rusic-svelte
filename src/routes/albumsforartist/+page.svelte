@@ -3,7 +3,7 @@
 	import { albumForArtistArtistId } from '$lib/stores.js';
 	import { albumForArtistAlbumId } from '$lib/stores.js';
 
-	let albumss = [];
+	let albumss = $state([]);
 	onMount(async () => {
 		let artid = $albumForArtistArtistId;
 		try {
@@ -32,8 +32,8 @@
 	<div class="albumInfoOuterDiv">
 		{#each albumss as albums}
 			<button
-				on:click={() => setAlbumForArtistAlbumId(albums.Albumid)}
-				on:keydown={(event) => {
+				onclick={() => setAlbumForArtistAlbumId(albums.Albumid)}
+				onkeydown={(event) => {
 					if (event.key === 'Enter') setAlbumForArtistAlbumId(albums.Albumid);
 				}}
 			>

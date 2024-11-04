@@ -7,7 +7,7 @@
 
 	let SFA = $songsForAlbum;
 
-	let songlist = [];
+	let songlist = $state([]);
 	onMount(async () => {
 		let URL = 'http://10.0.4.76:8080/albumsforartistsongs/' + $songsForAlbum;
 		try {
@@ -77,9 +77,9 @@
 					<p>{songz.Song}</p>
 				</div>
 				<div class="sfaBtns">
-					<button on:click={() => playSong(songz.PlayPath, songz.Albumid)} >Play</button>
+					<button onclick={() => playSong(songz.PlayPath, songz.Albumid)} >Play</button>
 					{#if $addbuttonvisible}
-						<button on:click={() => addSongToPlaylist(songz.RusicId)}>Add</button>
+						<button onclick={() => addSongToPlaylist(songz.RusicId)}>Add</button>
 					{/if}
 				</div>
 			</div>

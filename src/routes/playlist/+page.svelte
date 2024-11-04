@@ -1,10 +1,12 @@
 <script>
+	import { preventDefault } from 'svelte/legacy';
+
 	import { onMount } from 'svelte';
 	import { playplist } from '$lib/sound2Store.js';
 	import { currentPlayingImg, currentPlayingArtist, currentPlayingSong } from '$lib/stores.js';
 	import { playlist, songsforplaylist, playlistplaysongids } from '$lib/playlistStore.js';
 
-	let playlist_present = false;
+	let playlist_present = $state(false);
 
 	onMount(async () => {
 		let response = await fetch('http://10.0.4.76:8080/playlistcheck')
@@ -38,7 +40,7 @@
 			});
 	}
 
-	let name = '';
+	let name = $state('');
 	async function addEmptyPlaylist() {
 		let URL = 'http://10.0.4.76:8080/createemptyplaylist/' + name;
 		let url = encodeURI(URL);
@@ -53,8 +55,8 @@
 		getAllPlaylists();
 	}
 
-	let randomname = '';
-	let count = '';
+	let randomname = $state('');
+	let count = $state('');
 
 	async function addRandomPlaylist() {
 		let url = 'http://10.0.4.76:8080/createrandomplaylist/' + randomname + '/' + count;
@@ -103,15 +105,15 @@
 		}
 	}
 
-	let visible = true;
-	let visible2 = false;
+	let visible = $state(true);
+	let visible2 = $state(false);
 	function toggleVisible2() {
 		visible = !visible;
 		visible2 = !visible2;
 	}
 
-	let visible3 = false;
-	let visible4 = true;
+	let visible3 = $state(false);
+	let visible4 = $state(true);
 	function toggleVisible3() {
 		visible3 = !visible3;
 		visible4 = !visible4;
@@ -125,8 +127,8 @@
 
 <h1>Playlist</h1>
 <div class="addBtnDiv">
-	<button class="addBtn" on:click={() => toggleVisible2()}>Add Empty</button>
-	<button class="addBtn" on:click={() => toggleVisible3()}>Add Random</button>
+	<button class="addBtn" onclick={() => toggleVisible2()}>Add Empty</button>
+	<button class="addBtn" onclick={() => toggleVisible3()}>Add Random</button>
 </div>
 
 <section id="upperSection">
@@ -137,12 +139,12 @@
 					{#each $playlist as item}
 						<div class="playlistBtnDiv">
 							<a href="/editplaylist">
-								<button on:click={() => setSongsForPlaylist(item.RusicId)} class="playlistBtn"
+								<button onclick={() => setSongsForPlaylist(item.RusicId)} class="playlistBtn"
 									>{item.Name} ...{item.NumSongs}</button
 								>
 							</a>
-							<button class="playBtn" on:click={() => playPlaylist(item.RusicId)}>play</button>
-							<button class="deleteBtn" on:click={() => deletePlaylist(item.RusicId)}>delete</button
+							<button class="playBtn" onclick={() => playPlaylist(item.RusicId)}>play</button>
+							<button class="deleteBtn" onclick={() => deletePlaylist(item.RusicId)}>delete</button
 							>
 						</div>
 					{/each}
@@ -152,8 +154,8 @@
 						<form>
 							<label for="playlistNme">Playlist Name:</label>
 							<input bind:value={name} type="text" id="playlistNme" name="playlistNme" required />
-							<button class="addBtn" on:click|preventDefault={() => addEmptyPlaylist()}>Add</button>
-							<button class="addBtn" on:click={() => toggleVisible2()}>Cancel</button>
+							<button class="addBtn" onclick={preventDefault(() => addEmptyPlaylist())}>Add</button>
+							<button class="addBtn" onclick={() => toggleVisible2()}>Cancel</button>
 						</form>
 					</section>
 				{/if}
@@ -182,8 +184,8 @@
 						<input bind:value={randomname} type="text" id="randomName" name="randomName" required />
 						<label for="count">Count:</label>
 						<input bind:value={count} type="text" id="count" name="count" required />
-						<button class="addBtn" on:click|preventDefault={() => addRandomPlaylist()}>Add</button>
-						<button class="addBtn" on:click={() => toggleVisible3()}>Cancel</button>
+						<button class="addBtn" onclick={preventDefault(() => addRandomPlaylist())}>Add</button>
+						<button class="addBtn" onclick={() => toggleVisible3()}>Cancel</button>
 					</form>
 				</section>
 			{/if}

@@ -1,6 +1,6 @@
 <script>
 	import { progress, next, previous, stopPlayback } from '$lib/sound2Store.js';
-	export let imgSrc;
+	let { imgSrc } = $props();
 
 	function handleNext() {
 		next();
@@ -16,9 +16,9 @@
 </script>
 
 <img id="curPlay" src={imgSrc} alt="Currently playing" />
-<button class="pBtn" on:click={() => handlePrevious()}>Prev</button>
-<button class="pBtn" on:click={() => handleNext()}>Next</button>
-<button class="pBtn" on:click={() => handleStop()}>Stop</button>
+<button class="pBtn" onclick={() => handlePrevious()}>Prev</button>
+<button class="pBtn" onclick={() => handleNext()}>Next</button>
+<button class="pBtn" onclick={() => handleStop()}>Stop</button>
 <input type="range" min="0" max="100" bind:value={$progress} />
 
 <style>

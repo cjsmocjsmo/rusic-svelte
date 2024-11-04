@@ -5,7 +5,7 @@
 	import { playsingle } from '$lib/sound2Store.js';
 	import PlaylistSelect from '$lib/Comps/playlistselect.svelte';
 
-	let foobar = [];
+	let foobar = $state([]);
 
 	onMount(async () => {
 		try {
@@ -41,7 +41,7 @@
 		} catch (error) {}
 	}
 
-	let sfaData = [];
+	let sfaData = $state([]);
 	async function songsforalbum(albumid) {
 		try {
 			const response = await fetch('http://10.0.4.76:8080/songsforalbum/' + albumid)
@@ -104,18 +104,18 @@
 		<p>{$currentPlayingArtist}</p>
 	</button>
 	<div>
-		<button on:click={albumofinterest} on:keydown={albumofinterest} alt="albumofinterest"
+		<button onclick={albumofinterest} onkeydown={albumofinterest} alt="albumofinterest"
 			>Random Album</button
 		>
-		<button id="clearBtn" on:click={clear}>Clear</button>
+		<button id="clearBtn" onclick={clear}>Clear</button>
 	</div>
 
 	<div>
 		{#each foobar as foo}
 			<button
 				class="fooBtn"
-				on:click={() => songsforalbum(foo.AlbumId)}
-				on:keydown={() => songsforalbum(foo.AlbumId)}
+				onclick={() => songsforalbum(foo.AlbumId)}
+				onkeydown={() => songsforalbum(foo.AlbumId)}
 			>
 				<img class="CurPlay" src={foo.HttpThumbPath} alt={foo.AlbumId} />
 			</button>
@@ -132,9 +132,9 @@
 						<p>{sfa.Song}</p>
 					</div>
 					<div class="sfaBtns">
-						<button on:click={() => playSong(sfa.PlayPath, sfa.Albumid)}>Play</button>
+						<button onclick={() => playSong(sfa.PlayPath, sfa.Albumid)}>Play</button>
 						{#if $addbuttonvisible}
-							<button on:click={() => addSongToPlaylist(sfa.RusicId)}>Add</button>
+							<button onclick={() => addSongToPlaylist(sfa.RusicId)}>Add</button>
 						{/if}
 					</div>
 				</div>

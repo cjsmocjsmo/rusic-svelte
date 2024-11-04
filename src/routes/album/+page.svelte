@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { songsForAlbum } from '$lib/stores.js';
 
-	let alphabet = [];
+	let alphabet = $state([]);
 	onMount(async () => {
 		try {
 			const response = await fetch('http://10.0.4.76:8080/albumstartswith')
@@ -15,7 +15,7 @@
 		}
 	});
 
-	let albumlist = [];
+	let albumlist = $state([]);
 	async function getalbumForAlpha(letter) {
 		try {
 			const response = await fetch('http://10.0.4.76:8080/albumforalpha/' + letter)
@@ -41,7 +41,7 @@
 <section>
 	<div class="alphaOuterDiv">
 		{#each alphabet as letter}
-			<button class="alphaDiv" on:click={() => getalbumForAlpha(letter.Alpha)}>
+			<button class="alphaDiv" onclick={() => getalbumForAlpha(letter.Alpha)}>
 				<div class="tooltip">
 					{letter.Alpha}
 					<span class="tooltiptext">Count: {letter.Count}</span>
@@ -54,7 +54,7 @@
 		{#each albumlist as album}
 			<div class="albumInfoDiv">
 				<a href="/songsforalbum">
-					<button class="albBtn" on:click={() => setSongsForAlbum(album.Albumid)}>
+					<button class="albBtn" onclick={() => setSongsForAlbum(album.Albumid)}>
 						<img src={album.HttpThumbPath} alt={album.Name} />
 					</button>
 				</a>

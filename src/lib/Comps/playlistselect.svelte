@@ -34,14 +34,14 @@
 		visible = false;
 	}
 
-	let visible = false;
+	let visible = $state(false);
 	function isVisible() {
 		visible = !visible;
 	}
 
 </script>
 <div class="selDiv">
-	<button on:click={() => isVisible()}>Playlist: {$selectedplaylistname}</button>
+	<button onclick={() => isVisible()}>Playlist: {$selectedplaylistname}</button>
 </div>
 
 
@@ -49,7 +49,7 @@
 <div class="selDiv">
 	<div class="innerDiv">
 		{#each $playlist as plist}
-			<button on:click={() => setSelection(plist.RusicId, plist.Name)}>{plist.Name}</button
+			<button onclick={() => setSelection(plist.RusicId, plist.Name)}>{plist.Name}</button
 			>
 		{/each}
 	</div>

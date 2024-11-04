@@ -5,7 +5,7 @@
 	import { playsingle } from '$lib/sound2Store.js';
 	import PlaylistSelect from '$lib/Comps/playlistselect.svelte';
 
-	let pagelist = [];
+	let pagelist = $state([]);
 	onMount(async () => {
 		try {
 			const response = await fetch('http://10.0.4.76:8080/songpages')
@@ -18,7 +18,7 @@
 		}
 	});
 
-	let songlist = [];
+	let songlist = $state([]);
 
 	async function songsforpage(page) {
 		let url = `http://10.0.4.76:8080/songsforpage/${page}`;
@@ -30,7 +30,7 @@
 		visible = false;
 	}
 
-	let visible = false;
+	let visible = $state(false);
 	function isVisible() {
 		visible = !visible;
 		const pagesList = document.querySelector('.pagesList');
@@ -91,11 +91,11 @@
 	<h1>Songs</h1>
 	<PlaylistSelect />
 	<div class="">
-		<button id="pageBtn" on:click={isVisible}>Select A Page</button>
+		<button id="pageBtn" onclick={isVisible}>Select A Page</button>
 		{#if visible}
 			<div class="pagesList">
 				{#each pagelist as page}
-					<button class="plBtn" on:click={() => songsforpage(page)}>{page}</button>
+					<button class="plBtn" onclick={() => songsforpage(page)}>{page}</button>
 				{/each}
 			</div>
 		{/if}
@@ -111,9 +111,9 @@
 							<p>{song.Artist}</p>
 						</div>
 						<div class="sfaBtns">
-							<button on:click={() => playSong(song.PlayPath, song.Albumid)}>Play</button>
+							<button onclick={() => playSong(song.PlayPath, song.Albumid)}>Play</button>
 							{#if $addbuttonvisible}
-								<button on:click={() => addSongToPlaylist(song.SongId)}>Add</button>
+								<button onclick={() => addSongToPlaylist(song.SongId)}>Add</button>
 							{/if}
 						</div>
 					</div>
