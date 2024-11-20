@@ -11,8 +11,8 @@
 		<a href="/playlist"><button>Playlists</button></a>
 	</nav>
 	<div>
-		<a href="http://10.0.4.58:8090/"><button>Movies</button></a>
-		<a href="http://10.0.4.58:8091/"><button>TV</button></a>
+		<a href="http://10.0.4.76:8090/"><button>Movies</button></a>
+		<a href="http://10.0.4.76:8091/"><button>TV</button></a>
 	</div>
 </header>
 
