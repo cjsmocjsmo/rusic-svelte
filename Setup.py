@@ -2,14 +2,17 @@ import argparse
 import os
 import subprocess
 
+def run_command(command, check=True):
+    subprocess.run(command, check=check)
+
 def run_docker_commands(commands):
     for command in commands:
-        subprocess.run(command)
+        run_command(command)
 
 def handle_install(machine):
-    subprocess.run(['npm', 'install'])
-    subprocess.run(['npm', 'run', 'build'])
-    dockerfile_path = f"/{machine}/Dockerfile"
+    run_command(['npm', 'install'])
+    run_command(['npm', 'run', 'build'])
+    dockerfile_path = f"./{machine}/Dockerfile"
     image_tag = f"rusicsvelte:{machine}"
     container_name = f"rusicsvelte{machine.upper()}"
     
@@ -20,20 +23,20 @@ def handle_install(machine):
 
 def handle_restart(machine):
     container_name = f"rusicsvelte{machine.upper()}"
-    subprocess.run(['docker', 'start', container_name])
+    run_command(['docker', 'start', container_name])
 
 def handle_update(machine):
     container_name = f"rusicsvelte{machine.upper()}"
     image_tag = f"rusicsvelte:{machine}"
-    dockerfile_path = f"/{machine}/Dockerfile"
-    
+    dockerfile_path = f"./{machine}/Dockerfile"
+
+    subprocess.run(['docker', 'rm', '-f', container_name], check=False)
+
     run_docker_commands([
-        ['docker', 'stop', container_name],
-        ['docker', 'rm', container_name],
         ['git', 'pull'],
         ['npm', 'run', 'build'],
         ['docker', 'build', '-t', image_tag, '-f', dockerfile_path, '.'],
-        ['docker', 'run', '-d', '-p', '9090:80', image_tag]
+        ['docker', 'run', '-d', '-p', '9090:80', '--name', container_name, image_tag]
     ])
 
 def handle_delete(machine):
@@ -54,10 +57,17 @@ def main():
 
     args = parser.parse_args()
     machine = os.uname().machine
+    machine2 = None
+    if machine == "x86_64":
+        machine2 = "amd64"
+    elif machine == "aarch64":
+        machine2 = "arm64"
+    elif machine == "armv7l":
+        machine2 = "arm32"
 
     if args.install:
         if machine in ["armv7l", "aarch64", "x86_64"]:
-            handle_install(machine)
+            handle_install(machine2)
         elif machine == "i386":
             print("i386 architecture detected and is not supported.")
             os._exit(1)
@@ -66,19 +76,19 @@ def main():
             os._exit(1)
     elif args.restart:
         if machine in ["armv7l", "aarch64", "x86_64"]:
-            handle_restart(machine)
+            handle_restart(machine2)
         else:
             print("Unknown architecture detected exiting.")
             os._exit(1)
     elif args.update:
         if machine in ["armv7l", "aarch64", "x86_64"]:
-            handle_update(machine)
+            handle_update(machine2)
         else:
             print("Unknown architecture detected exiting.")
             os._exit(1)
     elif args.delete:
         if machine in ["armv7l", "aarch64", "x86_64"]:
-            handle_delete(machine)
+            handle_delete(machine2)
         else:
             print("Unknown architecture detected exiting.")
             os._exit(1)
