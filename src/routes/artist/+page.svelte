@@ -122,6 +122,10 @@
 		padding: 5px 0;
 		border-radius: 6px;
 		position: absolute;
+		left: 50%;
+		bottom: 100%;
+		transform: translateX(-50%);
+		margin-bottom: 8px;
 		z-index: 1;
 	}
 
