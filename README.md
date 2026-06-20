@@ -1,52 +1,36 @@
 # rusic-svelte
 
-rusic-svelte is part of the rusicsetup and rusic trio.
+rusic-svelte is the front end for the rusic music server.
 
-You will need to install and run rusicsetup and rusic before rusic-svelte can
-be used.
-
-Rusic has been developed specifically for the Raspberry pi 3 and 4.  
+Rusic has been developed specifically for the Raspberry pi 3b+, 4  and 5.  
 
 ![Project Screenshot](screenshot.png "width=450px")
 
 ## Prerequisites
 
-
-1. raspberrypiOS (bookworm)
-2. docker
+1. raspberrypiOS (bookworm/trixie)
+2. docker installed and running
 
 
 ## Usage
 
-Git clone this repository to any folder on your box.
-Execute RUN.sh, it will build a docker contianer for the architecture you specify.
+Git clone this repository to any folder on your box, and then execute Setup.py.
 
 
 ```bash
+cd /usr/share/rusic
+
 git clone https://github.com/cjsmocjsmo/rusic-svelte.git
 
-#for the rpi3
-sh RUN.sh 32 0.0.1
-
-# or if on the rpi4 and above
-
-sh RUN.sh 64 0.0.1
-```
-And thats it.  You should now have a running docker container
+python3 Setup.py -i 
 
 
 ## Updating
 
-To update simply re run RUN.sh with a new version
+Updating is a work in progress
 
-```bash
-sh RUN.sh 32 0.0.2
-
-#or 
-
-sh RUN.sh 64 0.0.2
-```
 
 ## Warning
 
-Rusic was designed to run on your home network and not on the wider internet.  It has no authentication system so you have been warned!!!
+Rusic was designed to run on your home network and not on the wider internet.
+It has no authentication system or TLS support so you have been warned!!!
