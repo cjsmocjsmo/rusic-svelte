@@ -15,16 +15,6 @@ if (typeof window !== 'undefined') {
 }
 let srclist = [];
 
-async function loadCoverArt(src) {
-    const URL = "http://10.0.4.76:8080/coverartfromplaypath/" + src
-    const url = encodeURI(URL)
-    const response = await fetch(url);
-    const data = await response.json();
-    currentPlayingArtist.set(data[0]);
-    currentPlayingSong.set(data[1]);
-    currentPlayingImg.set(data[2]);
-}
-
 async function loadSingle(src) {
     const URL = "http://10.0.4.76:8080/coverartfromplaypath/" + src
     const url = encodeURI(URL)
@@ -34,14 +24,11 @@ async function loadSingle(src) {
     currentPlayingSong.set(data[1]);
 }
 
-function loadTrack(src) {
-    audio.src = src;
-    audio.load();
-}
-
-function play(audio) {
-    loadCoverArt(srclist[index]);
-    audio.src = srclist[index];
+function play(track) {
+    currentPlayingArtist.set(track.Artist);
+    currentPlayingSong.set(track.Song);
+    currentPlayingImg.set(track.ImgUrl);
+    audio.src = track.PlayPath;
     audio.load();
     audio.play();
     audio.onplay = function () {
@@ -86,30 +73,26 @@ export function playsingle(src) {
 
 function playNext() {
     if (index < srclist.length) {
-        const path = srclist[index];
-        loadTrack(path);
-        play(audio);
+        const track = srclist[index];
+        play(track);
         index++;
     } else if (index >= srclist.length) {
         index = 0;
-        const path = srclist[index];
-        loadTrack(path);
-        play(audio);
+        const track = srclist[index];
+        play(track);
         index++;
     }
 }
 
 function playPrevious() {
     if (index > 0) {
-        const path = srclist[index];
-        loadTrack(path);
-        play(audio);
+        const track = srclist[index];
+        play(track);
         index--;
     } else if (index <= 0) {
         index = srclist.length - 1;
-        const path = srclist[index];
-        loadTrack(path);
-        play(audio);
+        const track = srclist[index];
+        play(track);
         index--;
     }
 }
