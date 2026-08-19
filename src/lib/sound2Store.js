@@ -24,11 +24,30 @@ async function loadSingle(src) {
     currentPlayingSong.set(data[1]);
 }
 
+// Backend sometimes serializes string fields as {String, Valid} (e.g. Go sql.NullString) instead of a plain string.
+function resolveStringField(value) {
+    if (typeof value === 'string') return value;
+    if (value && typeof value === 'object' && 'String' in value) {
+        return value.Valid === false ? '' : value.String;
+    }
+    return '';
+}
+
 function play(track) {
-    currentPlayingArtist.set(track.Artist);
-    currentPlayingSong.set(track.Song);
-    currentPlayingImg.set(track.ImgUrl);
-    audio.src = track.PlayPath;
+    const artist = resolveStringField(track.Artist);
+    const song = resolveStringField(track.Song);
+    const imgUrl = resolveStringField(track.ImgUrl);
+    const playPath = resolveStringField(track.PlayPath);
+
+    if (!playPath) {
+        console.error('play(): track has no usable PlayPath, skipping playback. Raw track:', track);
+        return;
+    }
+
+    currentPlayingArtist.set(artist);
+    currentPlayingSong.set(song);
+    currentPlayingImg.set(imgUrl);
+    audio.src = playPath;
     audio.load();
     audio.play();
     audio.onplay = function () {
