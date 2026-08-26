@@ -11,7 +11,6 @@ RUN \
 COPY build/*.html /usr/share/nginx/html/
 COPY build/*.png /usr/share/nginx/html/
 COPY build/*.txt /usr/share/nginx/html/
-COPY build/_app/env.js /usr/share/nginx/html/_app/
 COPY build/_app/version.json /usr/share/nginx/html/_app/
 COPY build/_app/immutable/assets/*.css /usr/share/nginx/html/_app/immutable/assets/
 COPY build/_app/immutable/assets/*.woff /usr/share/nginx/html/_app/immutable/assets/
