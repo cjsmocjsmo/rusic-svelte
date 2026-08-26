@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import MainImg from '$lib/images/playing.jpg'
+import MainImg from '$lib/images/playing.jpg';
 
 export const currentPlayingImg = writable(MainImg);
 
@@ -13,4 +13,4 @@ export const albumForArtistAlbumId = writable('');
 
 export const songsForAlbum = writable('');
 
-export const isPlaying = writable(false)
+export const isPlaying = writable(false);

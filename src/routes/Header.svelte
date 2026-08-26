@@ -1,7 +1,3 @@
-<script>
-	import { page } from '$app/stores';
-</script>
-
 <header>
 	<nav>
 		<a href="/"><button>Home</button></a>
@@ -33,6 +29,5 @@
 		border-radius: 12px;
 		font-size: 1.5rem;
 		color: black;
-
 	}
 </style>

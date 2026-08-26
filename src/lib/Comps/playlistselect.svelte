@@ -1,10 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
-	import { playlist, selectedplaylistid, selectedplaylistname, addbuttonvisible } from '$lib/playlistStore.js';
+	import {
+		playlist,
+		selectedplaylistid,
+		selectedplaylistname,
+		addbuttonvisible
+	} from '$lib/playlistStore.js';
 
 	let playlist_present = false;
 	onMount(async () => {
-		let response = await fetch('http://10.0.4.76:8080/playlistcheck')
+		await fetch('http://10.0.4.76:8080/playlistcheck')
 			.then((response) => response.json())
 			.then((data) => {
 				playlist_present = data;
@@ -13,10 +18,10 @@
 				console.error('Error:', error);
 			});
 		if (playlist_present) {
-			let response2 = await fetch('http://10.0.4.76:8080/allplaylists')
-				.then((response2) => response2.json())
-				.then((data2) => {
-					playlist.set(data2);
+			await fetch('http://10.0.4.76:8080/allplaylists')
+				.then((response) => response.json())
+				.then((data) => {
+					playlist.set(data);
 				})
 				.catch((error) => {
 					console.error('Error:', error);
@@ -24,10 +29,7 @@
 		}
 	});
 
-	let selected = '';
-
 	function setSelection(plid, name) {
-		selected = plid;
 		selectedplaylistid.set(plid);
 		addbuttonvisible.set(true);
 		selectedplaylistname.set(name);
@@ -38,28 +40,25 @@
 	function isVisible() {
 		visible = !visible;
 	}
-
 </script>
+
 <div class="selDiv">
 	<button onclick={() => isVisible()}>Playlist: {$selectedplaylistname}</button>
 </div>
 
-
 {#if visible}
-<div class="selDiv">
-	<div class="innerDiv">
-		{#each $playlist as plist}
-			<button onclick={() => setSelection(plist.RusicId, plist.Name)}>{plist.Name}</button
-			>
-		{/each}
-	</div>
-	
-	<div class="selDiv2">
-		<p id="selName">{$selectedplaylistname}</p>
-		<p> has been selected.</p>
-	</div>
+	<div class="selDiv">
+		<div class="innerDiv">
+			{#each $playlist as plist}
+				<button onclick={() => setSelection(plist.RusicId, plist.Name)}>{plist.Name}</button>
+			{/each}
+		</div>
 
-</div>
+		<div class="selDiv2">
+			<p id="selName">{$selectedplaylistname}</p>
+			<p>has been selected.</p>
+		</div>
+	</div>
 {/if}
 
 <style>

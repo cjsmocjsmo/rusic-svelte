@@ -8,7 +8,7 @@
 		let url = 'http://10.0.4.76:8080/editplaylistpage/' + playlistid;
 		let URL = encodeURI(url);
 		try {
-			const response = await fetch(URL)
+			await fetch(URL)
 				.then((response) => response.json())
 				.then((data) => {
 					playlist = data;
@@ -18,19 +18,19 @@
 		}
 	});
 
-    async function removeSongFromPlaylist(playlistid, songid) {
-        let url = 'http://10.0.4.76:8080/removesongfromplaylist/' + playlistid + '/' + songid;
-        let URL = encodeURI(url);
-        try {
-            const response = await fetch(URL)
-                .then((response) => response.json())
-                .then((data) => {
-                    playlist = data;
-                });
-        } catch (error) {
-            console.error(error);
-        }
-    }
+	async function removeSongFromPlaylist(playlistid, songid) {
+		let url = 'http://10.0.4.76:8080/removesongfromplaylist/' + playlistid + '/' + songid;
+		let URL = encodeURI(url);
+		try {
+			await fetch(URL)
+				.then((response) => response.json())
+				.then((data) => {
+					playlist = data;
+				});
+		} catch (error) {
+			console.error(error);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -40,7 +40,6 @@
 
 <h1>Edit Playlist</h1>
 <section>
-	
 	<div class="addBtnDiv">
 		<button class="addBtn"><a id="delbtn" href="/playlist">Cancel</a></button>
 	</div>
@@ -68,7 +67,10 @@
 						<p>{song2.Song}</p>
 					</div>
 					<div>
-						<button class="delBtn" onclick={() => removeSongFromPlaylist(song.RusicId, song2.RusicId)}>Delete</button>
+						<button
+							class="delBtn"
+							onclick={() => removeSongFromPlaylist(song.RusicId, song2.RusicId)}>Delete</button
+						>
 					</div>
 				</div>
 			{/each}

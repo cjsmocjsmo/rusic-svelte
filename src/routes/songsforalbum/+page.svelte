@@ -5,13 +5,11 @@
 	import { playsingle } from '$lib/sound2Store.js';
 	import PlaylistSelect from '$lib/Comps/playlistselect.svelte';
 
-	let SFA = $songsForAlbum;
-
 	let songlist = $state([]);
 	onMount(async () => {
 		let URL = 'http://10.0.4.76:8080/albumsforartistsongs/' + $songsForAlbum;
 		try {
-			const response = await fetch(URL)
+			await fetch(URL)
 				.then((response) => response.json())
 				.then((data) => {
 					songlist = data;
@@ -21,7 +19,6 @@
 		}
 	});
 
-
 	function playSong(src, albid) {
 		getCurrentPlayingImg(albid);
 		playsingle(src);
@@ -30,10 +27,10 @@
 	function setPlayingImg(img) {
 		currentPlayingImg.set(img);
 	}
-	
+
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
+			await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					setPlayingImg(data.HttpThumbPath);
@@ -48,7 +45,7 @@
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
-			const response = await fetch(url)
+			await fetch(url)
 				.then((response) => response.json())
 				.then((data) => {
 					console.log(data);
@@ -77,7 +74,7 @@
 					<p>{songz.Song}</p>
 				</div>
 				<div class="sfaBtns">
-					<button onclick={() => playSong(songz.PlayPath, songz.Albumid)} >Play</button>
+					<button onclick={() => playSong(songz.PlayPath, songz.Albumid)}>Play</button>
 					{#if $addbuttonvisible}
 						<button onclick={() => addSongToPlaylist(songz.RusicId)}>Add</button>
 					{/if}
@@ -120,7 +117,7 @@
 		justify-content: center;
 		align-items: center;
 	}
-	
+
 	button {
 		margin-top: 2rem;
 		padding: 12px 24px;
