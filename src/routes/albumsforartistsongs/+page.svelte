@@ -22,6 +22,7 @@
 
 	function playSong(src, albid) {
 		getCurrentPlayingImg(albid);
+		console.log('playSong() called with src:', src, 'and albid:', albid);
 		playsingle(src);
 	}
 
