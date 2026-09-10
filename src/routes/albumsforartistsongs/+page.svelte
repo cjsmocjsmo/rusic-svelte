@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { currentPlayingImg, albumForArtistAlbumId } from '$lib/stores.js';
 	import { playsingle } from '$lib/sound2Store.js';
-	import { selectedplaylistid, addbuttonvisible } from '$lib/playlistStore.js' 
+	import { selectedplaylistid, addbuttonvisible } from '$lib/playlistStore.js';
 	import PlaylistSelect from '$lib/Comps/playlistselect.svelte';
 
 	let songlist = $state([]);
@@ -10,7 +10,7 @@
 	onMount(async () => {
 		let URL = 'http://10.0.4.76:8080/albumsforartistsongs/' + $albumForArtistAlbumId;
 		try {
-			const response = await fetch(URL)
+			await fetch(URL)
 				.then((response) => response.json())
 				.then((data) => {
 					songlist = data;
@@ -31,7 +31,7 @@
 
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
+			await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					setPlayingImg(data.HttpThumbPath);
@@ -46,7 +46,7 @@
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
-			const response = await fetch(url)
+			await fetch(url)
 				.then((response) => response.json())
 				.then((data) => {
 					console.log(data);

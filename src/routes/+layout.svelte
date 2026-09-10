@@ -1,9 +1,7 @@
 <script>
 	import { currentPlayingImg } from '$lib/stores.js';
-	import { onMount } from 'svelte';
 	import './styles.css';
 	import Header from './Header.svelte';
-	import NoSleep from 'nosleep.js';
 	import RusicHowler from '$lib/Comps/rusichowel.svelte';
 	/**
 	 * @typedef {Object} Props
@@ -12,12 +10,6 @@
 
 	/** @type {Props} */
 	let { children } = $props();
-
-	let noSleep;
-
-	onMount(() => {
-		noSleep = new NoSleep();
-	});
 </script>
 
 <div class="app">

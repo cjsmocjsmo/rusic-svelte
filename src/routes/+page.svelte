@@ -9,7 +9,7 @@
 
 	onMount(async () => {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/main')
+			await fetch('http://10.0.4.76:8080/main')
 				.then((response) => response.json())
 				.then((data) => {
 					foobar = data;
@@ -18,10 +18,10 @@
 			console.error(error);
 		}
 		try {
-			let response2 = await fetch('http://10.0.4.76:8080/allplaylists')
-				.then((response2) => response2.json())
-				.then((data2) => {
-					playlist.set(data2);
+			await fetch('http://10.0.4.76:8080/allplaylists')
+				.then((response) => response.json())
+				.then((data) => {
+					playlist.set(data);
 				})
 				.catch((error) => {
 					console.error('Error:', error);
@@ -33,23 +33,27 @@
 
 	async function albumofinterest() {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/main')
+			await fetch('http://10.0.4.76:8080/main')
 				.then((response) => response.json())
 				.then((data) => {
 					foobar = data;
 				});
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	let sfaData = $state([]);
 	async function songsforalbum(albumid) {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/songsforalbum/' + albumid)
+			await fetch('http://10.0.4.76:8080/songsforalbum/' + albumid)
 				.then((response) => response.json())
 				.then((data) => {
 					sfaData = data;
 				});
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	function clear() {
@@ -64,7 +68,7 @@
 
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
+			await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					currentPlayingImg.set(data.HttpThumbPath);
@@ -79,7 +83,7 @@
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
-			const response = await fetch(url)
+			await fetch(url)
 				.then((response) => response.json())
 				.then((data) => {
 					console.log(data);

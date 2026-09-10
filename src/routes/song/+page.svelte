@@ -1,14 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
-	import { currentPlayingImg } from '$lib/stores.js'
-	import { selectedplaylistid, addbuttonvisible } from '$lib/playlistStore.js'
+	import { currentPlayingImg } from '$lib/stores.js';
+	import { selectedplaylistid, addbuttonvisible } from '$lib/playlistStore.js';
 	import { playsingle } from '$lib/sound2Store.js';
 	import PlaylistSelect from '$lib/Comps/playlistselect.svelte';
 
 	let pagelist = $state([]);
 	onMount(async () => {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/songpages')
+			await fetch('http://10.0.4.76:8080/songpages')
 				.then((response) => response.json())
 				.then((data) => {
 					pagelist = data;
@@ -22,7 +22,7 @@
 
 	async function songsforpage(page) {
 		let url = `http://10.0.4.76:8080/songsforpage/${page}`;
-		const response = await fetch(url)
+		await fetch(url)
 			.then((response) => response.json())
 			.then((data) => {
 				songlist = data;
@@ -44,7 +44,6 @@
 	function playSong(src, albid) {
 		getCurrentPlayingImg(albid);
 		playsingle(src);
-		clear();
 	}
 
 	async function addSongToPlaylist(songid) {
@@ -52,7 +51,7 @@
 		const ur = u + '/' + $selectedplaylistid;
 		const url = ur + '/' + songid;
 		try {
-			const response = await fetch(url)
+			await fetch(url)
 				.then((response) => response.json())
 				.then((data) => {
 					console.log(data);
@@ -68,10 +67,9 @@
 		currentPlayingImg.set(img);
 	}
 
-	
 	async function getCurrentPlayingImg(albid) {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
+			await fetch('http://10.0.4.76:8080/currentPlayingImg/' + albid)
 				.then((response) => response.json())
 				.then((data) => {
 					setPlayingImg(data.HttpThumbPath);
@@ -99,7 +97,7 @@
 				{/each}
 			</div>
 		{/if}
-		
+
 		{#if songlist.length === 0}
 			<p style="font-size:22px">Please Select A Page</p>
 		{:else}

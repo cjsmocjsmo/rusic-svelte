@@ -15,18 +15,15 @@ export const playlistplaysongids = writable([]);
 export const addbuttonvisible = writable(false);
 
 async function AddSongToPlaylist(selectedpaylistid, songid) {
-    let url = 'http://10.0.4.76:8080/addsongtoplaylist/' + selectedpaylistid + '/' + (songid);
-    URL = encodeURI(url);
-    let response = await fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        }
-        );
+	let url = 'http://10.0.4.76:8080/addsongtoplaylist/' + selectedpaylistid + '/' + songid;
+	const encodedUrl = encodeURI(url);
+	await fetch(encodedUrl)
+		.then((response) => response.json())
+		.catch((error) => {
+			console.error('Error:', error);
+		});
 }
 
 export function addsongtoplaylist(songid) {
-    AddSongToPlaylist(songid);
+	AddSongToPlaylist(songid);
 }

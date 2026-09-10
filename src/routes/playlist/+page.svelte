@@ -1,6 +1,4 @@
 <script>
-	import { preventDefault } from 'svelte/legacy';
-
 	import { onMount } from 'svelte';
 	import { playplist } from '$lib/sound2Store.js';
 	import { currentPlayingImg, currentPlayingArtist, currentPlayingSong } from '$lib/stores.js';
@@ -9,7 +7,7 @@
 	let playlist_present = $state(false);
 
 	onMount(async () => {
-		let response = await fetch('http://10.0.4.76:8080/playlistcheck')
+		await fetch('http://10.0.4.76:8080/playlistcheck')
 			.then((response) => response.json())
 			.then((data) => {
 				playlist_present = data;
@@ -18,10 +16,10 @@
 				console.error('Error:', error);
 			});
 		if (playlist_present) {
-			let response2 = await fetch('http://10.0.4.76:8080/allplaylists')
-				.then((response2) => response2.json())
-				.then((data2) => {
-					playlist.set(data2);
+			await fetch('http://10.0.4.76:8080/allplaylists')
+				.then((response) => response.json())
+				.then((data) => {
+					playlist.set(data);
 				})
 				.catch((error) => {
 					console.error('Error:', error);
@@ -30,10 +28,10 @@
 	});
 
 	async function getAllPlaylists() {
-		let response3 = await fetch('http://10.0.4.76:8080/allplaylists')
-			.then((response3) => response3.json())
-			.then((data3) => {
-				playlist.set(data3);
+		await fetch('http://10.0.4.76:8080/allplaylists')
+			.then((response) => response.json())
+			.then((data) => {
+				playlist.set(data);
 			})
 			.catch((error) => {
 				console.error('Error:', error);
@@ -45,9 +43,7 @@
 		let URL = 'http://10.0.4.76:8080/createemptyplaylist/' + name;
 		let url = encodeURI(URL);
 		try {
-			const response = await fetch(url)
-				.then((response) => response.json())
-				.then((data) => {});
+			await fetch(url).then((response) => response.json());
 		} catch (error) {
 			console.error(error);
 		}
@@ -62,9 +58,7 @@
 		let url = 'http://10.0.4.76:8080/createrandomplaylist/' + randomname + '/' + count;
 		let URL = encodeURI(url);
 		try {
-			const response = await fetch(URL)
-				.then((response) => response.json())
-				.then((data) => {});
+			await fetch(URL).then((response) => response.json());
 		} catch (error) {
 			console.error(error);
 		}
@@ -80,7 +74,7 @@
 		let url = 'http://10.0.4.76:8080/deleteplaylist/' + rusicidd;
 		let URL = encodeURI(url);
 		try {
-			const response = await fetch(URL)
+			await fetch(URL)
 				.then((response) => response.json())
 				.then((data) => {
 					playlist.set(data);
@@ -94,7 +88,7 @@
 		let url = 'http://10.0.4.76:8080/playplaylist/' + rusicid;
 		let URL = encodeURI(url);
 		try {
-			const response = await fetch(URL)
+			await fetch(URL)
 				.then((response) => response.json())
 				.then((data) => {
 					playlistplaysongids.set(data);
@@ -144,17 +138,21 @@
 								>
 							</a>
 							<button class="playBtn" onclick={() => playPlaylist(item.RusicId)}>play</button>
-							<button class="deleteBtn" onclick={() => deletePlaylist(item.RusicId)}>delete</button
-							>
+							<button class="deleteBtn" onclick={() => deletePlaylist(item.RusicId)}>delete</button>
 						</div>
 					{/each}
 				{/if}
 				{#if visible2}
 					<section>
-						<form>
+						<form
+							onsubmit={(event) => {
+								event.preventDefault();
+								addEmptyPlaylist();
+							}}
+						>
 							<label for="playlistNme">Playlist Name:</label>
 							<input bind:value={name} type="text" id="playlistNme" name="playlistNme" required />
-							<button class="addBtn" onclick={preventDefault(() => addEmptyPlaylist())}>Add</button>
+							<button class="addBtn" type="submit">Add</button>
 							<button class="addBtn" onclick={() => toggleVisible2()}>Cancel</button>
 						</form>
 					</section>
@@ -179,12 +177,17 @@
 			</div>
 			{#if visible3}
 				<section>
-					<form>
+					<form
+						onsubmit={(event) => {
+							event.preventDefault();
+							addRandomPlaylist();
+						}}
+					>
 						<label for="randomName">Name:</label>
 						<input bind:value={randomname} type="text" id="randomName" name="randomName" required />
 						<label for="count">Count:</label>
 						<input bind:value={count} type="text" id="count" name="count" required />
-						<button class="addBtn" onclick={preventDefault(() => addRandomPlaylist())}>Add</button>
+						<button class="addBtn" type="submit">Add</button>
 						<button class="addBtn" onclick={() => toggleVisible3()}>Cancel</button>
 					</form>
 				</section>

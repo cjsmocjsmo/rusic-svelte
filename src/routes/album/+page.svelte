@@ -5,7 +5,7 @@
 	let alphabet = $state([]);
 	onMount(async () => {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/albumstartswith')
+			await fetch('http://10.0.4.76:8080/albumstartswith')
 				.then((response) => response.json())
 				.then((data) => {
 					alphabet = data;
@@ -18,7 +18,7 @@
 	let albumlist = $state([]);
 	async function getalbumForAlpha(letter) {
 		try {
-			const response = await fetch('http://10.0.4.76:8080/albumforalpha/' + letter)
+			await fetch('http://10.0.4.76:8080/albumforalpha/' + letter)
 				.then((response) => response.json())
 				.then((data) => {
 					albumlist = data;
