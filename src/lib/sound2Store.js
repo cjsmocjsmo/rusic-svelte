@@ -16,6 +16,7 @@ if (typeof window !== 'undefined') {
 let srclist = [];
 
 async function loadSingle(src) {
+    console.log('loadSingle() called with src:', src);
     const URL = "http://10.0.4.76:8080/coverartfromplaypath/" + src
     const url = encodeURI(URL)
     const response = await fetch(url);
