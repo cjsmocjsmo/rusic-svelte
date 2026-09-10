@@ -20,6 +20,7 @@ async function loadSingle(src) {
     console.log('loadSingle() called with src:', src);
     const URL = "http://10.0.4.76:8080/coverartfromplaypath/" + src
     const url = encodeURI(URL)
+	console.log("endocded url ", url)
     const response = await fetch(url);
     const data = await response.json();
     currentPlayingArtist.set(data[0]);
