@@ -60,10 +60,10 @@
 		sfaData = [];
 	}
 
-	function playSong(src, albid) {
+	function playSong(src, albid, rusicid) {
 		getCurrentPlayingImg(albid);
-		console.log('playSong() called with src:', src, 'and albid:', albid);
-		playsingle(src);
+		console.log('playSong() called with src:', src, 'and albid:', albid, 'and rusicid:', rusicid);
+		playsingle(src, rusicid);
 		clear();
 	}
 
@@ -137,7 +137,7 @@
 						<p>{sfa.Song}</p>
 					</div>
 					<div class="sfaBtns">
-						<button onclick={() => playSong(sfa.PlayPath, sfa.Albumid)}>Play</button>
+						<button onclick={() => playSong(sfa.PlayPath, sfa.Albumid, sfa.RusicId)}>Play</button>
 						{#if $addbuttonvisible}
 							<button onclick={() => addSongToPlaylist(sfa.RusicId)}>Add</button>
 						{/if}
