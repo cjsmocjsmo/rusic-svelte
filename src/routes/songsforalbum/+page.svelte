@@ -19,10 +19,10 @@
 		}
 	});
 
-	function playSong(src, albid) {
+	function playSong(src, albid, rusicid) {
 		console.log('playSong() called with src:', src, 'and albid:', albid);
 		getCurrentPlayingImg(albid);
-		playsingle(src);
+		playsingle(src, rusicid);
 	}
 
 	function setPlayingImg(img) {
@@ -75,7 +75,7 @@
 					<p>{songz.Song}</p>
 				</div>
 				<div class="sfaBtns">
-					<button onclick={() => playSong(songz.PlayPath, songz.Albumid)}>Play</button>
+					<button onclick={() => playSong(songz.PlayPath, songz.Albumid, songz.RusicId)}>Play</button>
 					{#if $addbuttonvisible}
 						<button onclick={() => addSongToPlaylist(songz.RusicId)}>Add</button>
 					{/if}

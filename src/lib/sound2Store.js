@@ -16,9 +16,9 @@ if (typeof window !== 'undefined') {
 }
 let srclist = [];
 
-async function loadSingle(src) {
+async function loadSingle(src, rusicid) {
     console.log('loadSingle() called with src:', src);
-    const URL = "http://10.0.4.76:8080/coverartfromplaypath/" + src
+    const URL = "http://10.0.4.76:8080/coverartfromrusicid/" + rusicid
     const url = encodeURI(URL)
 	console.log("endocded url ", url)
     const response = await fetch(url);
@@ -72,8 +72,8 @@ function play(track) {
 	};
 }
 
-export function playsingle(src) {
-	loadSingle(src);
+export function playsingle(src, rusicid) {
+	loadSingle(src, rusicid);
 	audio.src = src;
 	audio.load();
 	audio.play();
