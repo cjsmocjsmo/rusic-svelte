@@ -23,6 +23,7 @@ async function loadSingle(src) {
 	console.log("endocded url ", url)
     const response = await fetch(url);
     const data = await response.json();
+	console.log('data received from loadSingle():', data);
     currentPlayingArtist.set(data[0]);
     currentPlayingSong.set(data[1]);
 }
